@@ -1,0 +1,40 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <h2>XHR without explicit cache response headers</h2>
+        <button id="noCache">Make XHR</button>
+        <ul id="noCacheMsgs">
+
+        </ul>
+
+        <h2>XHR with Cache-Control: max-age=0 response header</h2>
+        <button id="cache">Make XHR</button>
+        <ul id="cacheMsgs">
+
+        </ul>
+    </div>
+    <script src="~/Scripts/jquery-2.1.1.js"></script>
+    <script>
+        $("#noCache").click(function () {
+            $.get("/Home/GetServerTime").then(function (result) {
+                $("<li />").text(result).appendTo("#noCacheMsgs");
+            });
+        });
+
+        $("#cache").click(function () {
+            $.get("/Home/GetServerTimeWithCacheControl").then(function (result) {
+                $("<li />").text(result).appendTo("#cacheMsgs");
+            });
+        });
+    </script>
+</body>
+</html>
